@@ -1,0 +1,199 @@
+/*--------------------------------------*
+   GLOBAL RESET & VARIABLES
+*--------------------------------------*/
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    /* Colors */
+    --color-primary: #111;
+    --color-sand: #DCCBB8;
+    --color-ivory: #FFFFF0;
+    --color-mid: #F4EFE6;
+    --color-sage: #E7F1E7;
+
+    /* Typography */
+    --font-serif: 'Cormorant Garamond', serif;
+    --font-sans: 'Inter', sans-serif;
+
+    /* Spacing */
+    --space-xl: 120px;
+    --space-lg: 60px;
+    --space-md: 30px;
+    --space-sm: 16px;
+}
+
+/* Smooth Scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/*--------------------------------------*
+   BASE STYLE
+*--------------------------------------*/
+body {
+    font-family: var(--font-sans);
+    background: var(--color-ivory);
+    color: var(--color-primary);
+    line-height: 1.6;
+}
+
+/* Headings */
+h1, h2 {
+    font-family: var(--font-serif);
+    font-weight: 500;
+}
+
+/* Explicit H2 hierarchy */
+h2 {
+    font-size: 2rem;
+    margin-bottom: var(--space-sm);
+}
+
+/*--------------------------------------*
+   HERO
+*--------------------------------------*/
+.hero {
+    position: relative;
+    padding: var(--space-xl) 20px var(--space-xl);
+    text-align: center;
+    background: linear-gradient(180deg, var(--color-sage) 0%, var(--color-ivory) 100%);
+}
+
+.title {
+    font-size: 2.6rem;
+    margin-bottom: var(--space-sm);
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    opacity: 0.7;
+}
+
+.tagline {
+    max-width: 650px;
+    margin: var(--space-md) auto;
+    opacity: 0.85;
+    font-size: 1rem;
+}
+
+/*--------------------------------------*
+   CTA BUTTONS
+*--------------------------------------*/
+.btn {
+    padding: 12px 24px;
+    margin: 10px;
+    border-radius: 30px;
+    text-decoration: none;
+    display: inline-block;
+    letter-spacing: 0.4px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* Focus state for accessibility */
+.btn:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+.primary {
+    background: var(--color-sand);
+    color: var(--color-primary);
+}
+
+.primary:hover {
+    background: #cbb8a3;
+}
+
+.secondary {
+    border: 1px solid var(--color-primary);
+    color: var(--color-primary);
+}
+
+.secondary:hover {
+    background: var(--color-primary);
+    color: white;
+}
+
+/*--------------------------------------*
+   SECTIONS
+*--------------------------------------*/
+.section {
+    padding: var(--space-xl) 20px;
+    text-align: center;
+}
+
+.mirror {
+    background: linear-gradient(180deg, var(--color-ivory) 0%, var(--color-mid) 100%);
+}
+
+.blueprint {
+    background: linear-gradient(180deg, var(--color-mid) 0%, var(--color-sage) 100%);
+}
+
+p {
+    max-width: 650px;
+    margin: auto;
+}
+
+.limited {
+    font-style: italic;
+    opacity: 0.7;
+}
+
+.add-on {
+    margin-top: var(--space-sm);
+    opacity: 0.8;
+}
+
+/*--------------------------------------*
+   WAVES — LOCAL FILES
+*--------------------------------------*/
+.wave {
+    position: absolute;
+    width: 100%;
+    height: 100px;
+    left: 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.wave-top {
+    top: -1px;
+    transform: rotate(180deg);
+    background-image: url('assets/wave.svg');
+}
+
+.wave-bottom {
+    bottom: -1px;
+    background-image: url('assets/wave.svg');
+}
+
+/*--------------------------------------*
+   FOOTER
+*--------------------------------------*/
+.footer {
+    padding: var(--space-lg) 20px;
+    text-align: center;
+    opacity: 0.7;
+    font-size: 0.9rem;
+}
+
+/*--------------------------------------*
+   RESPONSIVENESS — DESKTOP
+*--------------------------------------*/
+@media (min-width: 768px) {
+    .title {
+        font-size: 3.8rem;
+    }
+
+    h2 {
+        font-size: 2.8rem; /* Enhanced desktop scale */
+    }
+
+}
