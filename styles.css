@@ -1,29 +1,10 @@
 /*--------------------------------------*
-   GLOBAL RESET & VARIABLES
+   GLOBAL RESET
 *--------------------------------------*/
 *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-}
-
-:root {
-    /* Colors */
-    --color-primary: #111;
-    --color-sand: #DCCBB8;
-    --color-ivory: #FFFFF0;
-    --color-mid: #F4EFE6;
-    --color-sage: #E7F1E7;
-
-    /* Typography */
-    --font-serif: 'Cormorant Garamond', serif;
-    --font-sans: 'Inter', sans-serif;
-
-    /* Spacing */
-    --space-xl: 120px;
-    --space-lg: 60px;
-    --space-md: 30px;
-    --space-sm: 16px;
 }
 
 /* Smooth Scrolling */
@@ -32,12 +13,47 @@ html {
 }
 
 /*--------------------------------------*
+   VARIABLES (THE SYSTEM)
+*--------------------------------------*/
+:root {
+    /* 1. PRIMITIVES (Your raw color palette) */
+    --palette-ink:         #111111;
+    --palette-sand:        #E8DCC2; 
+    --palette-dune:        #D2C3A8; /* Gradient End for Mirror */
+    --palette-ivory:       #FFFBF3;
+    --palette-cream:       #F4EFE6;
+    --palette-sage:        #E7F1E7; 
+    --palette-chrome:      #B7C4C8; /* Accent Color */
+    --palette-chrome-dark: #7D8A8D; /* Darker Accent */
+    --palette-jewel:       #C0E0DA; /* Gradient End for Underline */
+    --palette-white:       #FFFFFF;
+
+    /* 2. SEMANTICS (How we use the colors) */
+    --bg-page:        var(--palette-ivory);
+    --bg-card:        var(--palette-cream);
+    --text-main:      var(--palette-ink);
+    --border-color:   var(--palette-ink);
+    
+    /* 3. TYPOGRAPHY */
+    --font-serif:     'Cormorant Garamond', serif;
+    --font-sans:      'Inter', sans-serif;
+    
+    /* 4. SPACING (Converted to REM) 
+       Standard calculation: 1rem = 16px 
+    */
+    --space-sm: 1rem;      /* 16px */
+    --space-md: 1.875rem;  /* 30px */
+    --space-lg: 3.75rem;   /* 60px */
+    --space-xl: 7.5rem;    /* 120px */
+}
+
+/*--------------------------------------*
    BASE STYLE
 *--------------------------------------*/
 body {
     font-family: var(--font-sans);
-    background: var(--color-ivory);
-    color: var(--color-primary);
+    background: var(--bg-page);
+    color: var(--text-main);
     line-height: 1.6;
 }
 
@@ -47,10 +63,26 @@ h1, h2 {
     font-weight: 500;
 }
 
-/* Explicit H2 hierarchy */
+/* Explicit H2 hierarchy with Underline */
 h2 {
     font-size: 2rem;
     margin-bottom: var(--space-sm);
+    position: relative; /* Anchor for the ::after element */
+}
+
+/* The Gradient Underline */
+h2::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+    width: 3.75rem;    /* 60px */
+    height: 0.125rem;  /* 2px */
+    background: linear-gradient(90deg,
+        var(--palette-chrome),
+        var(--palette-jewel)
+    );
+    border-radius: 2px;
 }
 
 /*--------------------------------------*
@@ -58,9 +90,14 @@ h2 {
 *--------------------------------------*/
 .hero {
     position: relative;
-    padding: var(--space-xl) 20px var(--space-xl);
+    padding: var(--space-xl) 1.25rem var(--space-xl);
     text-align: center;
-    background: linear-gradient(180deg, var(--color-sage) 0%, var(--color-ivory) 100%);
+    /* Chrome & Ivory Glow */
+    background: linear-gradient(
+        180deg,
+        var(--palette-ivory) 0%,
+        var(--palette-chrome) 100%
+    );
 }
 
 .title {
@@ -84,8 +121,8 @@ h2 {
    CTA BUTTONS
 *--------------------------------------*/
 .btn {
-    padding: 12px 24px;
-    margin: 10px;
+    padding: 0.75rem 1.5rem;
+    margin: 0.625rem;
     border-radius: 30px;
     text-decoration: none;
     display: inline-block;
@@ -93,47 +130,57 @@ h2 {
     font-weight: 500;
     cursor: pointer;
     transition: 0.3s;
+    border: 1px solid transparent; /* Stabilizes layout for hover border */
 }
 
 /* Focus state for accessibility */
 .btn:focus-visible {
-    outline: 2px solid var(--color-primary);
+    outline: 2px solid var(--text-main);
     outline-offset: 2px;
 }
 
 .primary {
-    background: var(--color-sand);
-    color: var(--color-primary);
-}
-
-.primary:hover {
-    background: #cbb8a3;
+    background: var(--palette-sand);
+    color: var(--text-main);
 }
 
 .secondary {
-    border: 1px solid var(--color-primary);
-    color: var(--color-primary);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
 }
 
-.secondary:hover {
-    background: var(--color-primary);
-    color: white;
+/* Modern Hover State (Chrome Glow) */
+.btn:hover {
+    background: var(--palette-chrome);
+    color: var(--palette-white);
+    border-color: var(--palette-chrome-dark);
+    box-shadow: 0 4px 12px rgba(183, 196, 200, 0.4);
 }
 
 /*--------------------------------------*
    SECTIONS
 *--------------------------------------*/
 .section {
-    padding: var(--space-xl) 20px;
+    padding: var(--space-xl) 1.25rem;
     text-align: center;
 }
 
+/* Mirror Section: Sand → Dune Gradient */
 .mirror {
-    background: linear-gradient(180deg, var(--color-ivory) 0%, var(--color-mid) 100%);
+    background: linear-gradient(
+        180deg,
+        var(--palette-sand) 0%,
+        var(--palette-dune) 100%
+    );
 }
 
+/* Blueprint Section: Sage Mist → Ivory Fade */
 .blueprint {
-    background: linear-gradient(180deg, var(--color-mid) 0%, var(--color-sage) 100%);
+    background: linear-gradient(
+        180deg,
+        var(--palette-sage) 0%,
+        var(--palette-ivory) 100%
+    );
 }
 
 p {
@@ -161,6 +208,7 @@ p {
     left: 0;
     background-repeat: no-repeat;
     background-size: cover;
+    pointer-events: none; /* Prevents wave from blocking clicks on buttons */
 }
 
 .wave-top {
@@ -178,7 +226,7 @@ p {
    FOOTER
 *--------------------------------------*/
 .footer {
-    padding: var(--space-lg) 20px;
+    padding: var(--space-lg) 1.25rem;
     text-align: center;
     opacity: 0.7;
     font-size: 0.9rem;
@@ -193,7 +241,6 @@ p {
     }
 
     h2 {
-        font-size: 2.8rem; /* Enhanced desktop scale */
+        font-size: 2.8rem; 
     }
-
 }
