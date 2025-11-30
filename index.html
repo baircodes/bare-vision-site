@@ -1,85 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BARE VISION — Creative Strategy & Ethical Foresight</title>
-
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>BARE VISION — Creative Strategy & Ethical Foresight</title>
+  <meta name="description" content="Bare Vision supports natural and digital ecosystems through clarity-based decision making, ethical strategy, and creative foresight." />
+  <meta name="author" content="DIMA / Bare Holdings" />
+  
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="BARE VISION — Clarity-Based Foresight" />
+  <meta property="og:description" content="Ethical strategy for leaders navigating high-stakes decisions." />
+  <meta property="og:image" content="assets/share-card.jpg" /> <meta property="og:url" content="https://barevision.com" />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
 </head>
 
 <body>
 
-    <!-- HERO -->
-    <header class="hero">
-        <div class="hero-inner">
-            <h1 class="title">BARE VISION</h1>
-            <p class="subtitle">Strategic Foresight for a New Economy</p>
-            <p class="tagline">
-                Ethical strategy and creative intelligence for leaders navigating
-                high-stakes decisions, expansion, and transformation.
-            </p>
+  <div id="page-loader" role="status" aria-live="polite">
+    <div class="loader-overlay">
+      <div class="loader-inner">
+        <h1 class="loader-title">BARE VISION</h1>
+        <p class="loader-sub">clarity-based foresight</p>
+      </div>
+    </div>
+  </div>
 
-            <div class="cta-group">
-                <a href="#mirror" class="btn primary">The Mirror — 2h Consultation</a>
-                <a href="#blueprint" class="btn secondary">The Blueprint Call</a>
-            </div>
-        </div>
-        <div class="wave wave-bottom"></div>
+  <div id="bg-layer" aria-hidden="true">
+    <img src="assets/sunrise.jpg" alt="" class="bg-image bg-sunrise" fetchpriority="high" />
+    <img src="assets/sunset.jpg" alt="" class="bg-image bg-sunset" />
+    <div class="bg-overlay"></div>
+  </div>
+
+  <main id="site">
+    
+    <header class="hero">
+      <div class="hero-inner">
+        <h1 class="title hero-title">
+            <span class="title-text">BARE VISION</span>
+        </h1>
+        <p class="subtitle">Strategic Foresight for a New Economy</p>
+        <p class="tagline">
+          Ethical strategy and creative intelligence for leaders navigating high-stakes decisions, expansion, and transformation.
+        </p>
+
+        <nav class="cta-group" aria-label="Main Actions">
+          <a href="#mirror" class="btn orb primary" id="mirror-btn">The Mirror — 2h</a>
+          <a href="#blueprint" class="btn orb secondary" id="blueprint-btn">Blueprint Call</a>
+        </nav>
+      </div>
     </header>
 
-    <!-- ABOUT -->
-    <section class="section about" id="about">
-        <h2>About Bare Vision</h2>
-        <p>
-            Bare Vision is the consulting pillar of BAIR Atmospheres — supporting natural and digital ecosystems 
-            through clarity-based decision making, ethical strategy, and creative foresight. This work helps leaders 
-            land, ground, and move with coherence during times of complexity, opportunity, and expansion.
-        </p>
+    <section class="section about" id="about" data-animate>
+      <h2>About Bare Vision</h2>
+      <p>
+        Bare Vision is the consulting pillar of BAIR Atmospheres — supporting natural and digital ecosystems through
+        clarity-based decision making, ethical strategy, and creative foresight.
+      </p>
     </section>
 
-    <!-- MIRROR -->
-    <section class="section mirror" id="mirror">
-        <div class="wave wave-top"></div>
-
-        <h2>The Mirror — 2h Consultation</h2>
-        <p class="limited">Only 4 sessions per year</p>
-
-        <p>
-            Two hours of high-clarity decision support — designed for moments when stakes are high and alignment is essential. 
-            Ideal before scaling decisions, major deals, world tours, launches, or any threshold that requires precision.
-        </p>
-
-        <p class="add-on">Optional: +30 min Yoga Nidra Séance (+$99)</p>
-
-        <a href="#" class="btn primary">Reserve The Mirror</a>
-
-        <div class="wave wave-bottom"></div>
+    <section class="section mirror" id="mirror" data-animate>
+      <h2>The Mirror — 2h Consultation</h2>
+      <p class="limited">Only 4 sessions per year</p>
+      <p>Two hours of high-clarity decision support — designed for moments when stakes are high and alignment is essential.</p>
+      <p class="add-on">Optional: +30 min Yoga Nidra Séance (+$99)</p>
+      <a href="mailto:contact@barevision.com?subject=Reserve The Mirror" class="btn orb primary">Reserve The Mirror</a>
     </section>
 
-    <!-- BLUEPRINT -->
-    <section class="section blueprint" id="blueprint">
-        <h2>The Blueprint & The Playbook</h2>
-
-        <p>
-            The Blueprint call determines whether Bare Vision is the right strategic partner for your ecosystem. 
-            It includes assessment, clarity architecture, and an estimate for the scope of work.
-        </p>
-
-        <p>
-            The Playbook is a tailored strategy for expansion — rooted in cultural, operational, and structural clarity. 
-            Projects may involve internal collaboration with your task force or external orchestration with BV affiliates.
-        </p>
-
-        <a href="#" class="btn secondary">Schedule Discovery Call</a>
+    <section class="section blueprint" id="blueprint" data-animate>
+      <h2>The Blueprint & The Playbook</h2>
+      <p>The Blueprint call determines whether Bare Vision is the right strategic partner for your ecosystem.</p>
+      <a href="https://calendly.com/barevision/discovery" target="_blank" rel="noopener" class="btn orb secondary">Schedule Discovery Call</a>
     </section>
 
-    <!-- FOOTER -->
-    <footer class="footer">
-        <p>© Bare Vision • BAIR Atmospheres</p>
+    <footer class="footer" data-animate>
+      <p>&copy; <span id="year"></span> Bare Vision • BAIR Atmospheres</p>
     </footer>
 
+  </main>
+
+  <script src="main.js" defer></script>
+  
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>

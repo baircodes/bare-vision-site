@@ -1,246 +1,230 @@
 /*--------------------------------------*
-   GLOBAL RESET
-*--------------------------------------*/
-*, *::before, *::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-/* Smooth Scrolling */
-html {
-    scroll-behavior: smooth;
-}
-
-/*--------------------------------------*
-   VARIABLES (THE SYSTEM)
+   :root tokens (Futuristic Dunes)
 *--------------------------------------*/
 :root {
-    /* 1. PRIMITIVES (Your raw color palette) */
-    --palette-ink:         #111111;
-    --palette-sand:        #E8DCC2; 
-    --palette-dune:        #D2C3A8; /* Gradient End for Mirror */
-    --palette-ivory:       #FFFBF3;
-    --palette-cream:       #F4EFE6;
-    --palette-sage:        #E7F1E7; 
-    --palette-chrome:      #B7C4C8; /* Accent Color */
-    --palette-chrome-dark: #7D8A8D; /* Darker Accent */
-    --palette-jewel:       #C0E0DA; /* Gradient End for Underline */
-    --palette-white:       #FFFFFF;
+  /* Palette - Quiet Luxury/Silver */
+  --color-ivory: #FFFBF3;
+  --color-sand: #E8DCC2;
+  --color-dune: #CBB89A;
+  --color-sage: #E7F1E7;
+  --color-chrome: #B7C4C8;
+  --color-chrome-dark: #7D8A8D;
+  --color-orchid: #C8B7D2;
+  --color-jewel: #C0E0DA;
+  --text: #0f0f10;
 
-    /* 2. SEMANTICS (How we use the colors) */
-    --bg-page:        var(--palette-ivory);
-    --bg-card:        var(--palette-cream);
-    --text-main:      var(--palette-ink);
-    --border-color:   var(--palette-ink);
-    
-    /* 3. TYPOGRAPHY */
-    --font-serif:     'Cormorant Garamond', serif;
-    --font-sans:      'Inter', sans-serif;
-    
-    /* 4. SPACING (Converted to REM) 
-       Standard calculation: 1rem = 16px 
-    */
-    --space-sm: 1rem;      /* 16px */
-    --space-md: 1.875rem;  /* 30px */
-    --space-lg: 3.75rem;   /* 60px */
-    --space-xl: 7.5rem;    /* 120px */
+  /* Gradients - Tokenized for performance & consistency */
+  --grad-chrome-text: linear-gradient(90deg, var(--color-chrome) 8%, rgba(255,255,255,0.02) 30%, rgba(255,255,255,0.18) 50%, rgba(255,255,255,0.02) 70%, var(--color-jewel) 96%);
+  --grad-orb-base: linear-gradient(180deg, rgba(255,255,255,0.26), rgba(183,196,200,0.12));
+  --grad-overlay: linear-gradient(180deg, rgba(255,255,250,0.12) 0%, rgba(18,14,10,0.18) 100%);
+
+  /* Spacing & Timing */
+  --space-xs: 10px; --space-sm: 18px; --space-md: 32px; --space-lg: 80px; --space-xl: 120px;
+  --maxwidth: 1100px;
+  --transition-fast: 220ms cubic-bezier(0.2, 0.8, 0.2, 1); /* Snappier feel */
+  --transition-med: 420ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Layer Cake (Z-Index System) */
+  --z-negative: -1;
+  --z-base: 1;
+  --z-overlay: 100;
+  --z-loader: 1000;
 }
 
-/*--------------------------------------*
-   BASE STYLE
-*--------------------------------------*/
+/* Reset & Base */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  text-size-adjust: 100%; /* Prevent font scaling on landscape mobile */
+}
+
 body {
-    font-family: var(--font-sans);
-    background: var(--bg-page);
-    color: var(--text-main);
-    line-height: 1.6;
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+  color: var(--text);
+  background: var(--color-ivory);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  line-height: 1.5;
 }
 
-/* Headings */
-h1, h2 {
-    font-family: var(--font-serif);
-    font-weight: 500;
+/* BACKGROUND LAYERS */
+#bg-layer {
+  position: fixed; inset: 0;
+  z-index: var(--z-negative);
+  pointer-events: none;
+  overflow: hidden;
 }
 
-/* Explicit H2 hierarchy with Underline */
-h2 {
-    font-size: 2rem;
-    margin-bottom: var(--space-sm);
-    position: relative; /* Anchor for the ::after element */
+.bg-image {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+  opacity: 0;
+  transition: opacity 800ms ease;
+  /* Removed constant will-change for memory optimization */
+  filter: contrast(1.02) saturate(1.05) brightness(0.98);
 }
 
-/* The Gradient Underline */
-h2::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -8px;
-    width: 3.75rem;    /* 60px */
-    height: 0.125rem;  /* 2px */
-    background: linear-gradient(90deg,
-        var(--palette-chrome),
-        var(--palette-jewel)
-    );
-    border-radius: 2px;
+.bg-sunrise { opacity: 1; }
+
+.bg-overlay {
+  position: absolute; inset: 0;
+  background: var(--grad-overlay);
+  mix-blend-mode: soft-light;
 }
 
-/*--------------------------------------*
-   HERO
-*--------------------------------------*/
+/* LOADER */
+#page-loader {
+  position: fixed; inset: 0;
+  z-index: var(--z-loader);
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(180deg, rgba(255,255,250,1), rgba(255,250,240,0.92));
+  transition: opacity 900ms ease, visibility 900ms;
+}
+
+#page-loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+
+.loader-title {
+  font-family: var(--font-serif, "Cormorant Garamond", serif);
+  font-size: 2.4rem; letter-spacing: 0.4rem;
+  background: linear-gradient(90deg, rgba(183,196,200,1), rgba(192,224,218,0.8));
+  -webkit-background-clip: text; background-clip: text;
+  color: transparent;
+}
+
+/* HERO */
 .hero {
-    position: relative;
-    padding: var(--space-xl) 1.25rem var(--space-xl);
-    text-align: center;
-    /* Chrome & Ivory Glow */
-    background: linear-gradient(
-        180deg,
-        var(--palette-ivory) 0%,
-        var(--palette-chrome) 100%
-    );
+  min-height: 66vh;
+  display: flex; align-items: center; justify-content: center;
+  padding: clamp(48px, 8vh, 120px) 20px;
+  text-align: center;
+  /* Optimized: Removed backdrop-filter for better scroll performance on high-res displays */
+  background: linear-gradient(180deg, rgba(255,255,250,0.14), rgba(255,255,250,0.02));
 }
 
+.hero-inner { max-width: var(--maxwidth); margin: 0 auto; padding: 0 20px; }
+
+/* TYPOGRAPHY */
 .title {
-    font-size: 2.6rem;
-    margin-bottom: var(--space-sm);
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(2.4rem, 6vw, 4.2rem);
+  letter-spacing: 0.08em;
+  margin-bottom: 12px;
+  opacity: 0; transform: translateY(12px);
+  text-wrap: balance; /* OPTIMIZATION: Keeps headline symmetrical */
+}
+
+.title .title-text {
+  display: inline-block;
+  background: var(--grad-chrome-text);
+  background-size: 220% 100%;
+  -webkit-background-clip: text; background-clip: text;
+  color: transparent;
+  transition: background-position 1.6s ease;
 }
 
 .subtitle {
-    font-size: 1.1rem;
-    opacity: 0.7;
+  opacity: 0.85; margin-bottom: 10px;
+  font-weight: 500; color: rgba(15,15,16,0.86);
 }
 
 .tagline {
-    max-width: 650px;
-    margin: var(--space-md) auto;
-    opacity: 0.85;
-    font-size: 1rem;
+  max-width: 730px; margin: 18px auto 26px;
+  opacity: 0.9; font-size: 1.05rem;
+  text-wrap: pretty; /* OPTIMIZATION: Prevents typographic orphans */
 }
 
-/*--------------------------------------*
-   CTA BUTTONS
-*--------------------------------------*/
+/* BUTTONS / ORBS */
+.cta-group { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-top: 18px; }
+
 .btn {
-    padding: 0.75rem 1.5rem;
-    margin: 0.625rem;
-    border-radius: 30px;
-    text-decoration: none;
-    display: inline-block;
-    letter-spacing: 0.4px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: 0.3s;
-    border: 1px solid transparent; /* Stabilizes layout for hover border */
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 160px; padding: 14px 22px;
+  border-radius: 999px; text-decoration: none;
+  font-weight: 600; cursor: pointer;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), opacity 180ms;
+  position: relative; overflow: visible; border: none; outline: none;
 }
 
-/* Focus state for accessibility */
-.btn:focus-visible {
-    outline: 2px solid var(--text-main);
-    outline-offset: 2px;
+/* Orb Aesthetics - The "Chrome" Look */
+.orb {
+  border-radius: 999px;
+  /* Optimized: Removed 'inset' shadow from first line to reduce painting complexity */
+  box-shadow: 0 6px 24px rgba(8,10,12,0.08);
+  background: var(--grad-orb-base);
+  color: var(--text);
 }
 
-.primary {
-    background: var(--palette-sand);
-    color: var(--text-main);
+.btn.primary { background: linear-gradient(180deg, var(--color-sand), var(--color-dune)); color: var(--text); }
+.btn.secondary { background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02)); border: 1px solid rgba(17,17,17,0.06); }
+
+/* Chrome reflection pulse */
+.orb::after {
+  content: ""; position: absolute; inset: 0; border-radius: 999px; pointer-events: none;
+  background: radial-gradient(120px 40px at 20% 20%, rgba(255,255,255,0.55), transparent 30%);
+  mix-blend-mode: overlay; opacity: 0.9;
+  transform: translateY(-6px) scale(0.98);
+  transition: transform var(--transition-med), opacity var(--transition-med);
 }
 
-.secondary {
-    border: 1px solid var(--border-color);
-    color: var(--text-main);
-}
+.orb:hover { transform: translateY(-4px); } /* Reduced movement for subtler feel */
+.orb:hover::after { transform: translateY(-10px) scale(1.05); opacity: 1; }
+.orb:active { transform: translateY(-1px) scale(0.99); }
 
-/* Modern Hover State (Chrome Glow) */
-.btn:hover {
-    background: var(--palette-chrome);
-    color: var(--palette-white);
-    border-color: var(--palette-chrome-dark);
-    box-shadow: 0 4px 12px rgba(183, 196, 200, 0.4);
-}
-
-/*--------------------------------------*
-   SECTIONS
-*--------------------------------------*/
+/* SECTIONS */
 .section {
-    padding: var(--space-xl) 1.25rem;
-    text-align: center;
+  max-width: var(--maxwidth); margin: 0 auto;
+  padding: clamp(48px, 6vh, 88px) 20px;
+  text-align: center; position: relative;
+  /* Optimized: Box-shadow is cheaper than drop-shadow */
+  box-shadow: 0 12px 28px -8px rgba(10,8,12,0.05);
+  opacity: 0; transform: translateY(28px) scale(0.998);
 }
 
-/* Mirror Section: Sand → Dune Gradient */
-.mirror {
-    background: linear-gradient(
-        180deg,
-        var(--palette-sand) 0%,
-        var(--palette-dune) 100%
-    );
+.section h2 {
+  font-family: "Cormorant Garamond", serif; font-size: 1.6rem;
+  margin-bottom: 14px; position: relative;
+  display: inline-block;
+}
+/* Chrome underline */
+.section h2::after {
+  content: ""; position: absolute; left: 50%; transform: translateX(-50%);
+  bottom: -10px; height: 3px; width: 64px;
+  background: linear-gradient(90deg, var(--color-chrome), var(--color-jewel));
+  border-radius: 4px;
 }
 
-/* Blueprint Section: Sage Mist → Ivory Fade */
-.blueprint {
-    background: linear-gradient(
-        180deg,
-        var(--palette-sage) 0%,
-        var(--palette-ivory) 100%
-    );
+/* ANIMATIONS */
+@keyframes heroEnter {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-p {
-    max-width: 650px;
-    margin: auto;
+@keyframes mirageIn {
+  0% { opacity: 0; transform: translateY(36px) scale(0.996) rotateX(6deg); }
+  60% { opacity: 1; transform: translateY(8px) scale(1.001) rotateX(0deg); }
+  100% { opacity: 1; transform: translateY(0) scale(1) rotateX(0deg); }
 }
 
-.limited {
-    font-style: italic;
-    opacity: 0.7;
+@keyframes slowFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
 }
 
-.add-on {
-    margin-top: var(--space-sm);
-    opacity: 0.8;
-}
+.section.visible { animation: mirageIn 780ms cubic-bezier(.2,.9,.35,1) forwards; }
+.hero .title.visible { animation: heroEnter 900ms cubic-bezier(.17,.85,.4,1) forwards; }
+.title .title-text.floaty { animation: slowFloat 8s ease-in-out infinite; }
 
-/*--------------------------------------*
-   WAVES — LOCAL FILES
-*--------------------------------------*/
-.wave {
-    position: absolute;
-    width: 100%;
-    height: 100px;
-    left: 0;
-    background-repeat: no-repeat;
-    background-size: cover;
-    pointer-events: none; /* Prevents wave from blocking clicks on buttons */
-}
-
-.wave-top {
-    top: -1px;
-    transform: rotate(180deg);
-    background-image: url('assets/wave.svg');
-}
-
-.wave-bottom {
-    bottom: -1px;
-    background-image: url('assets/wave.svg');
-}
-
-/*--------------------------------------*
-   FOOTER
-*--------------------------------------*/
-.footer {
-    padding: var(--space-lg) 1.25rem;
-    text-align: center;
-    opacity: 0.7;
-    font-size: 0.9rem;
-}
-
-/*--------------------------------------*
-   RESPONSIVENESS — DESKTOP
-*--------------------------------------*/
+/* MEDIA QUERIES */
 @media (min-width: 768px) {
-    .title {
-        font-size: 3.8rem;
-    }
+  .section h2 { font-size: 2.2rem; }
+  .title { font-size: clamp(3rem, 5.5vw, 5rem); }
+  .cta-group { gap: 28px; }
+}
 
-    h2 {
-        font-size: 2.8rem; 
-    }
+/* ACCESSIBILITY */
+.btn:focus-visible {
+  outline: 2px solid var(--color-chrome-dark);
+  outline-offset: 4px;
 }
